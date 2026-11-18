@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Auto Recap</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #080808;
+      color: white;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      padding: 50px 20px;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 15px;
+      color: #a78bfa;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 45px;
+      margin: 0;
+    }
+
+    .highlight {
+      color: #a855f7;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #999;
+      margin-top: 15px;
+      font-size: 17px;
+    }
+
+    .card {
+      margin-top: 40px;
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 25px;
+      padding: 25px;
+    }
+
+    .upload {
+      border: 2px dashed #444;
+      border-radius: 20px;
+      padding: 45px 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .upload:hover {
+      border-color: #a855f7;
+    }
+
+    .icon {
+      font-size: 50px;
+    }
+
+    .upload-text {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .small {
+      margin-top: 8px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 16px;
+      border: 0;
+      border-radius: 14px;
+      background: #9333ea;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #a855f7;
+    }
+
+    #fileName {
+      margin-top: 15px;
+      text-align: center;
+      color: #bbb;
+    }
+
+    .result {
+      display: none;
+      margin-top: 25px;
+    }
+
+    .result-box {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 22px;
+      margin-top: 15px;
+    }
+
+    .result-box h2 {
+      margin-top: 0;
+    }
+
+    .result-box p {
+      color: #bbb;
+      line-height: 1.7;
+    }
+
+    .point {
+      background: #191919;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 36px;
+      }
+
+      .container {
+        padding-top: 35px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="logo">
+      ✨ AI VIDEO RECAP
+    </div>
+
+    <h1>
+      Turn Videos Into
+      <span class="highlight"> Recaps</span>
+    </h1>
+
+    <p class="subtitle">
+      Upload a video and get a quick summary.
+    </p>
+
+    <div class="card">
+
+      <label class="upload">
+
+        <div class="icon">🎬</div>
+
+        <div class="upload-text">
+          Tap to upload your video
+        </div>
+
+        <div class="small">
+          MP4, MOV or WebM
+        </div>
+
+        <input
+          id="video"
+          type="file"
+          accept="video/*"
+          onchange="showFile()"
+        >
+
+      </label>
+
+      <div id="fileName"></div>
+
+      <button onclick="generateRecap()">
+        ✨ Generate Recap
+      </button>
+
+    </div>
+
+    <div id="result" class="result">
+
+      <div class="result-box">
+
+        <h2>⚡ TL;DR</h2>
+
+        <p>
+          Your AI-generated recap will appear here.
+        </p>
+
+      </div>
+
+      <div class="result-box">
+
+        <h2>🔥 Key Points</h2>
+
+        <div class="point">
+          1. Important point from the video
+        </div>
+
+        <div class="point">
+          2. Another important point
+        </div>
+
+        <div class="point">
+          3. Main idea of the video
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    function showFile() {
+
+      const file =
+        document.getElementById("video").files[0];
+
+      if (file) {
+
+        document.getElementById("fileName").innerText =
+          "Selected: " + file.name;
+
+      }
+
+    }
+
+    function generateRecap() {
+
+      const file =
+        document.getElementById("video").files[0];
+
+      if (!file) {
+
+        alert("Please select a video first.");
+
+        return;
+
+      }
+
+      document.getElementById("result").style.display =
+        "block";
+
+      document.getElementById("result").scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>
